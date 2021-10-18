@@ -11,18 +11,25 @@ def player(musicpath):
 def otpt(put):
     for char in put:
             print(char, end="", flush=True)
-            time.sleep(0.02)
+            time.sleep(0.04)
     print("")
-musicpath = ("/")
-norl = input("New game or Load?: ")
-if norl == "load":
+def load():
     save = open((('data/save.mag')), 'rb')
     savelist = pickle.load(save)
     musicpath = savelist.pop()
     count = savelist.pop()
     player(musicpath)
-else:
+def save():
+    save = open((('data/save.mag')), 'wb')
+    savelist = [cont, musicpath]
+    pickle.dump(savelist, save)
+    save.close()
+musicpath = ("/")
+norl = input("New game or Load(N/L)?:")
+if (norl == "n") or (norl == "N"):
     count = ('1')
+elif (norl == "L") or (norl == "l"):
+    load()
 while True:
     cont = str(count)
     file = open((('data/data') + (cont) + ('.mag')), 'rb')
@@ -50,11 +57,12 @@ while True:
             count = firstlink
         elif answer == '2':
             count = secondlink
-        elif answer == 'save' or 'exit' or 'quit':
-            save = open((('data/save.mag')), 'wb')
-            savelist = [cont, musicpath]
-            pickle.dump(savelist, save)
-            save.close()
+        elif (answer == 'save') or (answer == 'Save') or (answer == 's') or (answer == 'S'):
+            save()
+        elif (answer == "load") or (answer == "Load") or (answer == "l") or (answer == "L"):
+            load()
+        elif (answer == 'exit') or (answer == 'Exit') or (answer == 'quit') or (answer == 'Quit'):
+            save()
             sys.exit()
     if numberans == '3':
         firstans = data.pop()
@@ -83,14 +91,15 @@ while True:
             count = secondlink
         elif answer == '3':
             count = thirdlink
-        elif answer == 'save' or 'exit' or 'quit':
-            save = open((('data/save.mag')), 'wb')
-            pickle.dump(cont, save)
-            save.close()
+        elif (answer == 'save') or (answer == 'Save') or (answer == 's') or (answer == 'S'):
+            save()
+        elif (answer == "load") or (answer == "Load") or (answer == "l") or (answer == "L"):
+            load()
+        elif (answer == 'exit') or (answer == 'Exit') or (answer == 'quit') or (answer == 'Quit'):
+            save()
             sys.exit()
     elif numberans == 'end':
-        print ((" ") + (text))
-        a = "b"
-        print ("")
-        input("Press enter to exit")
+        output = (("  ")+(text))
+        otpt(output)
+        input(otpt("Press enter to exit"))
         sys.exit()
