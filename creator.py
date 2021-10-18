@@ -10,7 +10,7 @@ while True:
         firstlink = input("Enter the link to the next file: ")
         secondans = input("2: ")
         secondlink = input("Enter the link to the next file: ")
-        if flag == "муз":
+        if flag == "1":
             musicpath = ('data/music/') + input("Enter music file name: ") + ('.mp3')
             result = [musicpath, secondlink, secondans, firstlink, firstans, numberans, text, flag]
         else:
@@ -22,7 +22,7 @@ while True:
         secondlink = input("Enter the link to the next file: ")
         thirdans = input("3: ")
         thirdlink = input("Enter the link to the next file: ")
-        if flag == "муз":
+        if flag == "1":
             musicpath = ('data/music/') + input("Enter music file name: ") + ('.mp3')
             result = [musicpath, thirdlink, thirdans, secondlink, secondans, firstlink, firstans, numberans, text, flag]
         else:
