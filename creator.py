@@ -29,7 +29,7 @@ while True:
             result = [thirdlink, thirdans, secondlink, secondans, firstlink, firstans, numberans, text, flag]
     if numberans == 'end':
        result = [numberans, text, flag] 
-    file = open(('data/data' + (cont) + '.mag'), 'wb')
+    file = open(('engine/data/data' + (cont) + '.mag'), 'wb')
     pickle.dump(result, file)
     file.close()
     count += 1
