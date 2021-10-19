@@ -4,26 +4,47 @@ import pickle
 import sys
 import time
 from pygame import mixer
+import keyboard
 def player(musicpath):
     mixer.init()
     mixer.music.load(musicpath)
     mixer.music.play(-1,0.0)
 def otpt(put):
     for char in put:
-            print(char, end="", flush=True)
-            time.sleep(0.04)
+        a = 0.03
+        if keyboard.is_pressed("esc"):
+            a = 0
+        print(char, end="", flush=True)
+        time.sleep(a)
     print("")
 def load():
+    global count
     save = open((('data/save.mag')), 'rb')
     savelist = pickle.load(save)
     musicpath = savelist.pop()
     count = savelist.pop()
     player(musicpath)
 def save():
+    global count
     save = open((('data/save.mag')), 'wb')
     savelist = [cont, musicpath]
     pickle.dump(savelist, save)
     save.close()
+    answer = input(": ")
+    if answer == '1':
+        count = firstlink
+    elif answer == '2':
+        count = secondlink
+    elif answer == '3':
+        count = thirdlink
+    elif (answer == 'exit') or (answer == 'Exit') or (answer == 'quit') or (answer == 'Quit'):
+            save = open((('data/save.mag')), 'wb')
+            savelist = [cont, musicpath]
+            pickle.dump(savelist, save)
+            save.close()
+            sys.exit()
+    elif (answer == "load") or (answer == "Load") or (answer == "l") or (answer == "L"):
+            load()
 musicpath = ("/")
 norl = input("New game or Load(N/L)?:")
 if (norl == "n") or (norl == "N"):
@@ -43,11 +64,11 @@ while True:
         firstlink = data.pop()
         secondans = data.pop()
         secondlink = data.pop()
-        otpt(output)
-        print("")
         if flag == "1":
             musicpath = data.pop()
             player(musicpath)
+        otpt(output)
+        print("")
         ans1out = (("1: ") + (firstans))
         ans2out = (("2: ") + (secondans))
         otpt(ans1out)
@@ -62,7 +83,10 @@ while True:
         elif (answer == "load") or (answer == "Load") or (answer == "l") or (answer == "L"):
             load()
         elif (answer == 'exit') or (answer == 'Exit') or (answer == 'quit') or (answer == 'Quit'):
-            save()
+            save = open((('data/save.mag')), 'wb')
+            savelist = [cont, musicpath]
+            pickle.dump(savelist, save)
+            save.close()
             sys.exit()
     if numberans == '3':
         firstans = data.pop()
@@ -71,13 +95,11 @@ while True:
         secondlink = data.pop()
         thirdans = data.pop()
         thirdlink = data.pop()
-        for char in output:
-            print(char, end="", flush=True)
-            time.sleep(0.03)
-        print("")
         if flag == "1":
             musicpath = data.pop()
             player(musicpath)
+        otpt(output)
+        print("")
         ans1out = (("1: ") + (firstans))
         ans2out = (("2: ") + (secondans))
         ans3out = (("3: ") + (thirdans))
@@ -96,10 +118,14 @@ while True:
         elif (answer == "load") or (answer == "Load") or (answer == "l") or (answer == "L"):
             load()
         elif (answer == 'exit') or (answer == 'Exit') or (answer == 'quit') or (answer == 'Quit'):
-            save()
+            save = open((('data/save.mag')), 'wb')
+            savelist = [cont, musicpath]
+            pickle.dump(savelist, save)
+            save.close()
             sys.exit()
     elif numberans == 'end':
         output = (("  ")+(text))
         otpt(output)
-        input(otpt("Press enter to exit"))
+        otpt("Press enter to exit")
+        input("")
         sys.exit()
